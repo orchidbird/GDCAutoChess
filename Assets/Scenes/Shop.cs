@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
-    public GameObject ShopObject;
+    public GameObject ShopObject;   
     public GameObject[] UnitObject = new GameObject[4];
     public GameObject reroll;
-    public bool[] shop = new bool[4];
-    public int[] warehouse = new int[8];
-    public int[] warehouselevel = new int[8];
-    public int[] num = new int[4];
-    public int[] unit = new int[16];
-    public int[] playerunitlevel1 = new int[16];
+
+    public bool[] shop = new bool[4];               //상점 배경. OnOff 가능한거 같은데, 이제는 그럴 필요 없음. --> 추후 변경
+
+    public int[] warehouse = new int[8];            //창고에 있는 유닛의 종류
+    public int[] warehouselevel = new int[8];       //창고에 있는 카드의 성급 저장
+
+    public int[] num = new int[4];                  //유닛 종류
+    public int[] unit = new int[16];                //상점에 남아있는 유닛 풀
+
+    //플레이어가 가지고 있는 n성 카드의 개수
+    public int[] playerunitlevel1 = new int[16];    
     public int[] playerunitlevel2 = new int[16];
     public int[] playerunitlevel3 = new int[16];
 
+    //초기화
     void Awake()
     {
         for (int i = 0; i < 4; i++)
@@ -24,8 +30,8 @@ public class Shop : MonoBehaviour
             UnitObject[i] = GameObject.Find("상점" + (i + 1).ToString());
             UnitObject[i].SetActive(false);
         }
-        ShopObject.SetActive(false);
-        reroll.SetActive(false);
+        ShopObject.SetActive(true);
+        reroll.SetActive(true);
         for (int i = 0; i < 8; i++)
         {
             warehouse[i] = -1;
@@ -38,8 +44,10 @@ public class Shop : MonoBehaviour
             playerunitlevel2[i] = 0;
             playerunitlevel3[i] = 0;
         }
+        //랜덤 숫자 받아오기
         for(int i = 0; i < 4; i++)
         {
+            //range는 카드 종류의 수
             num[i] = Random.Range(1, 5);
             if (unit[num[i]-1] != 0)
             {
@@ -51,7 +59,8 @@ public class Shop : MonoBehaviour
             }
         }
     }
-    // Start is called before the first frame update
+
+    //상점 활성화 여부 바꾸기
     public void ShopSetActive()
     {
         if (!ShopObject.active)
