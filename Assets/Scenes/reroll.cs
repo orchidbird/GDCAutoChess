@@ -7,7 +7,7 @@ public class reroll : MonoBehaviour
 {
     public void click()
     {
-        Shop a = GameObject.Find("상점버튼").GetComponent<Shop>();
+		playervariable a = GameObject.Find("field").GetComponent<playervariable>();
         for (int i = 0; i < 4; i++)
         {
             if (a.shop[i])
@@ -16,9 +16,14 @@ public class reroll : MonoBehaviour
             }
             a.shop[i] = true;
             a.UnitObject[i].SetActive(true);
-            a.num[i] = Random.Range(1, 5);
-            a.UnitObject[i].GetComponent<Image>().sprite = Resources.Load("Unit" + a.num[i].ToString(), typeof(Sprite)) as Sprite;
-            a.unit[a.num[i]-1]--;
+            a.num[i] = Random.Range(1, 17);
+            a.UnitObject[i].GetComponent<Image>().sprite = Resources.Load("카드틀_1성", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
+			a.UnitObject[i].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
+			if (a.num[i] < 14)
+				a.UnitObject[i].transform.GetChild(1).GetComponent<Text>().text = "1$";
+			else
+				a.UnitObject[i].transform.GetChild(1).GetComponent<Text>().text = "4$";
+			a.unit[a.num[i]-1]--;
         }
     }
 }
