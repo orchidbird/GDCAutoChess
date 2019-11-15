@@ -15,6 +15,6 @@ public class gold : MonoBehaviour
 
 	void Update()
 	{
-		PlayerGold.text = "Gold :" + playervariable.playergold.ToString();
+		PlayerGold.text = playervariable.playergold.ToString();
 	}
 }

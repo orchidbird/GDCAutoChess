@@ -21,6 +21,10 @@ public class playervariable : MonoBehaviour
 
 	public static int playergold;								//골드
 
+    //보드에 있는 유닛의 종류
+    public int[] board = new int[12];
+    public int[] boardLevel = new int[12];
+
 	void Awake()
 	{
 		for (int i = 0; i < 4; i++)

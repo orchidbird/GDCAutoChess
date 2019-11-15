@@ -18,9 +18,10 @@ public class Shop1 : MonoBehaviour
         {
             if (ShopButton.name == "상점" + (i+1).ToString())
             {
-                gameObject.GetComponent<Image>().sprite = Resources.Load("카드틀_1성", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
-				gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
-				if (a.num[i] < 14)
+                gameObject.GetComponent<Image>().sprite = Resources.Load("카드배경_1", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
+                gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
+                gameObject.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("카드템플릿_1", typeof(Sprite)) as Sprite;
+                if (a.num[i] < 14)
 					gameObject.transform.GetChild(1).GetComponent<Text>().text = "1$";
 				else
 					gameObject.transform.GetChild(1).GetComponent<Text>().text = "4$";
@@ -56,11 +57,12 @@ public class Shop1 : MonoBehaviour
 				else
 					playervariable.playergold -= 4;
 				//Resources에서 Unit~ sprite로 불러와서 warehouse에 집어넣기
-				Warehouse[j].GetComponent<Image>().sprite = Resources.Load("카드틀_1성", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
-				Warehouse[j].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
+				Warehouse[j].GetComponent<Image>().sprite = Resources.Load("카드배경_1", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
+                Warehouse[j].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
+                Warehouse[j].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("카드템플릿_1", typeof(Sprite)) as Sprite;
 
-				//warehouse의 j번째 칸에 불러온 카드 집어넣는다
-				a.warehouse[j] = a.num[i];
+                //warehouse의 j번째 칸에 불러온 카드 집어넣는다
+                a.warehouse[j] = a.num[i];
 
 				//상점에서 뽑아온 카드의 성급을 받아온다
 				a.warehouselevel[j] = 1;
@@ -80,17 +82,19 @@ public class Shop1 : MonoBehaviour
 						{
 							a.warehouse[k] = -1;        //k번째 창고에 -1 집어넣기(창고 비우기)
 							a.warehouselevel[k] = 0;        //창고에 있는 카드 레벨 0으로 초기화
-							Warehouse[k].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
-							Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;//창고가 비었을 때 다시 창고 이미지 보여주기
+                            Warehouse[k].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                            Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite; ;//창고가 비었을 때 다시 창고 이미지 보여주기
 
 							//1성 카드들 중 첫번째 카드만 2성 이미지로 보여주기
 							if (b == 0)
 							{
 								a.warehouse[k] = a.num[i];      // ??
 								a.warehouselevel[k] = 2;        //창고에 있는 카드레벨 2로 만들기
-								Warehouse[k].GetComponent<Image>().sprite = Resources.Load("카드틀_2성", typeof(Sprite)) as Sprite;
-								Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;     //2성 카드 이미지 보여주기
-								b++;        // b=0일때만 작업 수행하기 때문에, 그 뒤로 발견되는 1성 카드들은 그냥 사라지기만 할 것이다.
+                                Warehouse[k].GetComponent<Image>().sprite = Resources.Load("카드배경_2", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
+                                Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
+                                Warehouse[k].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("카드템플릿_2", typeof(Sprite)) as Sprite;
+                                b++;        // b=0일때만 작업 수행하기 때문에, 그 뒤로 발견되는 1성 카드들은 그냥 사라지기만 할 것이다.
 							}
 						}
 					}
@@ -110,13 +114,15 @@ public class Shop1 : MonoBehaviour
 							a.warehouselevel[k] = 0;
 							Warehouse[k].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
 							Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
-							if (b == 0)
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                            if (b == 0)
 							{
 								a.warehouse[k] = a.num[i];
 								a.warehouselevel[k] = 3;
-								Warehouse[k].GetComponent<Image>().sprite = Resources.Load("카드틀_3성", typeof(Sprite)) as Sprite;
-								Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
-								b++;
+                                Warehouse[k].GetComponent<Image>().sprite = Resources.Load("카드배경_3", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
+                                Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
+                                Warehouse[k].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("카드템플릿_3", typeof(Sprite)) as Sprite;
+                                b++;
 							}
 						}
 					}
@@ -136,17 +142,19 @@ public class Shop1 : MonoBehaviour
 					{
 						a.warehouse[k] = -1;        //k번째 창고에 -1 집어넣기(창고 비우기)
 						a.warehouselevel[k] = 0;        //창고에 있는 카드 레벨 0으로 초기화
-						Warehouse[k].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
-						Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;   //창고가 비었을 때 다시 창고 이미지 보여주기
+                        Warehouse[k].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                        Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                        Warehouse[k].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;   //창고가 비었을 때 다시 창고 이미지 보여주기
 
-						//1성 카드들 중 첫번째 카드만 2성 이미지로 보여주기
-						if (b == 0)
+                        //1성 카드들 중 첫번째 카드만 2성 이미지로 보여주기
+                        if (b == 0)
 						{
 							a.warehouse[k] = a.num[i];      // ??
 							a.warehouselevel[k] = 2;        //창고에 있는 카드레벨 2로 만들기
-							Warehouse[k].GetComponent<Image>().sprite = Resources.Load("카드틀_2성", typeof(Sprite)) as Sprite;
-							Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;     //2성 카드 이미지 보여주기
-							b++;        // b=0일때만 작업 수행하기 때문에, 그 뒤로 발견되는 1성 카드들은 그냥 사라지기만 할 것이다.
+                            Warehouse[k].GetComponent<Image>().sprite = Resources.Load("카드배경_2", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
+                            Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("카드템플릿_2", typeof(Sprite)) as Sprite;
+                            b++;        // b=0일때만 작업 수행하기 때문에, 그 뒤로 발견되는 1성 카드들은 그냥 사라지기만 할 것이다.
 						}
 					}
 				}
@@ -165,13 +173,15 @@ public class Shop1 : MonoBehaviour
 							a.warehouselevel[k] = 0;
 							Warehouse[k].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
 							Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
 							if (b == 0)
 							{
 								a.warehouse[k] = a.num[i];
 								a.warehouselevel[k] = 3;
-								Warehouse[k].GetComponent<Image>().sprite = Resources.Load("카드틀_3성", typeof(Sprite)) as Sprite;
-								Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
-								b++;
+                                Warehouse[k].GetComponent<Image>().sprite = Resources.Load("카드배경_3", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
+                                Warehouse[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
+                                Warehouse[k].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("카드템플릿_3", typeof(Sprite)) as Sprite;
+                                b++;
 							}
 						}
 					}
