@@ -34,10 +34,20 @@ public class Move : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            CastRay();
+            //CastRay();
         }
     }
 
+    void OnMouseDrag()
+    {
+        float distance = 10;
+
+        print("Drag!!");
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
+        Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        transform.position = objPosition;
+    }
+    /*
     void CastRay()
     {
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -78,4 +88,5 @@ public class Move : MonoBehaviour
             isClicked = 0;
         }
     }
+    */
 }
