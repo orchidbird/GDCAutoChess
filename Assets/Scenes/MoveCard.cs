@@ -4,18 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Move1 : MonoBehaviour
+public class MoveCard : MonoBehaviour
 {
-    public GameObject[] board = new GameObject[9];
+    public GameObject[] board = new GameObject[20];
     public GameObject[] clickedCard = new GameObject[3];
-    public int[] clickedData = new int[3];
-
-    public GameObject selected;
-    public int isClicked;
+    public int[] clickedData = new int[2];
 
     public Vector2 firstPos;
     public Image[] cardImage = new Image[3];
 
+    public int whatIsHit;
     playervariable a;
 
     // Start is called before the first frame update
@@ -27,37 +25,44 @@ public class Move1 : MonoBehaviour
         {
             board[i] = GameObject.Find("유닛창고" + (i + 1).ToString());
         }
-        for(int i = 0; i < 1; i++)
+        for (int i = 0; i < 12; i++)
         {
             board[i + 8] = GameObject.Find("판" + (i + 1).ToString());
         }
 
-        isClicked = 0;
-
         a = GameObject.Find("field").GetComponent<playervariable>();
+
+        whatIsHit = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            //CastRay();
-        }
-    }
     void OnMouseDown()
     {
         cardImage[0] = transform.GetComponent<Image>();
         cardImage[1] = transform.GetChild(0).GetComponent<Image>();
         cardImage[2] = transform.GetChild(0).GetChild(0).GetComponent<Image>();
-        print(EventSystem.current.currentSelectedGameObject.name);
         gameObject.layer = LayerMask.NameToLayer("Selected");
-    }
 
+        for (int n = 0; n < 20; n++)
+        {
+            if (this.gameObject == board[n] && n < 8)
+            {
+                clickedData[0] = a.warehouse[n];
+                clickedData[1] = a.warehouselevel[n];
+                whatIsHit = n;
+                print("whatIsHit = " + n);
+            }
+            if (this.gameObject == board[n] && n >= 8)
+            {
+                clickedData[0] = a.board[n-8];
+                clickedData[1] = a.boardLevel[n-8];
+                whatIsHit = n;
+                print("whatIsHit = " + n);
+            }
+        }
+    }
 
     void OnMouseDrag()
     {
-        print("Drag!!");
         Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector2 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         transform.position = objPosition;
@@ -66,23 +71,65 @@ public class Move1 : MonoBehaviour
     void OnMouseUp()
     {
         transform.position = firstPos;
-        gameObject.layer = LayerMask.NameToLayer("Selected");
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         int layerMask = 1 << LayerMask.NameToLayer("onBoard");
         RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 1f, layerMask);
-        print("HIT : " + hit.collider.name);
+
         if (hit.collider != null && hit.collider.tag == "Board")
         {
             hit.collider.gameObject.transform.GetComponent<Image>().sprite = cardImage[0].sprite;
             hit.collider.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = cardImage[1].sprite;
             hit.collider.gameObject.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardImage[2].sprite;
+
+            for (int n = 0; n < board.Length; n++)
+            {
+                if (whatIsHit > 8)
+                {
+                    
+                }
+
+                if (hit.collider.gameObject == board[n] && n >= 8)
+                {
+                    a.board[n - 8] = clickedData[0];
+                    a.boardLevel[n - 8] = clickedData[1];
+                    print("SUCCESS- ware2board");
+                }
+
+                if (hit.collider.gameObject == board[n] && n < 8)
+                {
+                    a.warehouse[n] = clickedData[0];
+                    a.warehouselevel[n] = clickedData[1];
+                    print("SUCCESS - ware2ware");
+                }
+            }
         }
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer("onBoard");
+            return;
+        }
+
+        clickedData = new int[2];
+
+        if (whatIsHit < 8)
+        {
+            a.warehouse[whatIsHit] = -1;
+            a.warehouselevel[whatIsHit] = 0;
+        }
+        else
+        {
+            a.board[whatIsHit-8] = 0;
+            a.boardLevel[whatIsHit-8] = 0;
+        }
+
+        
+        
 
         transform.GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
         transform.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
         transform.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite; ;//창고가 비었을 때 다시 창고 이미지 보여주기
 
-        gameObject.layer = LayerMask.NameToLayer("Selected");
+        gameObject.layer = LayerMask.NameToLayer("onBoard");
 
     }
 }
