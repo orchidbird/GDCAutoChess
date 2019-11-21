@@ -74,7 +74,12 @@ public class MoveCard : MonoBehaviour
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         int layerMask = 1 << LayerMask.NameToLayer("onBoard");
         RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 1f, layerMask);
+        if (hit.collider == null)
+            return;
 
+        if (hit.collider.gameObject.transform.GetComponent<Image>().sprite.name != "창고")
+            return;
+       
         if (hit.collider != null && hit.collider.tag == "Board")
         {
             hit.collider.gameObject.transform.GetComponent<Image>().sprite = cardImage[0].sprite;
@@ -83,11 +88,6 @@ public class MoveCard : MonoBehaviour
 
             for (int n = 0; n < board.Length; n++)
             {
-                if (whatIsHit > 8)
-                {
-                    
-                }
-
                 if (hit.collider.gameObject == board[n] && n >= 8)
                 {
                     a.board[n - 8] = clickedData[0];
