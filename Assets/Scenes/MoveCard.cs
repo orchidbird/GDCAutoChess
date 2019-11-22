@@ -6,15 +6,14 @@ using UnityEngine.EventSystems;
 
 public class MoveCard : MonoBehaviour
 {
-    public GameObject[] board = new GameObject[20];
-    public GameObject[] clickedCard = new GameObject[3];
-    public int[] clickedData = new int[2];
+    public GameObject[] board = new GameObject[20]; //board numbering
+    public int[] clickedData = new int[2];  //Data of selected card
 
-    public Vector2 firstPos;
-    public Image[] cardImage = new Image[3];
+    public Vector2 firstPos;    //first position of selected card
+    public Image[] cardImage = new Image[3];    //card image sprite
 
-    public int whatIsHit;
-    playervariable a;
+    public int whatIsHit;   //number of hit board
+    playervariable a;   //variable
 
     // Start is called before the first frame update
     void Start()
@@ -41,8 +40,8 @@ public class MoveCard : MonoBehaviour
         cardImage[1] = transform.GetChild(0).GetComponent<Image>();
         cardImage[2] = transform.GetChild(0).GetChild(0).GetComponent<Image>();
         gameObject.layer = LayerMask.NameToLayer("Selected");
-
-        for (int n = 0; n < 20; n++)
+        
+        for (int n = 0; n < 20; n++)    //checking data of selected card
         {
             if (this.gameObject == board[n] && n < 8)
             {
@@ -62,7 +61,8 @@ public class MoveCard : MonoBehaviour
     }
 
     void OnMouseDrag()
-    {
+    {   
+        //repositioning of selected object.
         Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector2 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         transform.position = objPosition;
@@ -77,9 +77,11 @@ public class MoveCard : MonoBehaviour
         if (hit.collider == null)
             return;
 
+        //if the board is not empty
         if (hit.collider.gameObject.transform.GetComponent<Image>().sprite.name != "창고")
             return;
        
+        //Moving data of selected card to new board
         if (hit.collider != null && hit.collider.tag == "Board")
         {
             hit.collider.gameObject.transform.GetComponent<Image>().sprite = cardImage[0].sprite;
@@ -88,18 +90,20 @@ public class MoveCard : MonoBehaviour
 
             for (int n = 0; n < board.Length; n++)
             {
-                if (hit.collider.gameObject == board[n] && n >= 8)
-                {
-                    a.board[n - 8] = clickedData[0];
-                    a.boardLevel[n - 8] = clickedData[1];
-                    print("SUCCESS- ware2board");
-                }
-
                 if (hit.collider.gameObject == board[n] && n < 8)
                 {
                     a.warehouse[n] = clickedData[0];
                     a.warehouselevel[n] = clickedData[1];
-                    print("SUCCESS - ware2ware");
+                    print("SUCCESS_2ware");
+                    print("card : " + clickedData[0] + "\nstar : " + clickedData[1]);
+                }
+
+                if (hit.collider.gameObject == board[n] && n >= 8)
+                {
+                    a.board[n - 8] = clickedData[0];
+                    a.boardLevel[n - 8] = clickedData[1];
+                    print("SUCCESS_2board");
+                    print("card : " + clickedData[0] + "\nstar : " + clickedData[1]);
                 }
             }
         }
@@ -109,6 +113,7 @@ public class MoveCard : MonoBehaviour
             return;
         }
 
+        //initialize clickedData
         clickedData = new int[2];
 
         if (whatIsHit < 8)
@@ -120,16 +125,11 @@ public class MoveCard : MonoBehaviour
         {
             a.board[whatIsHit-8] = 0;
             a.boardLevel[whatIsHit-8] = 0;
-        }
-
-        
-        
+        }   
 
         transform.GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
         transform.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
-        transform.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite; ;//창고가 비었을 때 다시 창고 이미지 보여주기
-
+        transform.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite; ;
         gameObject.layer = LayerMask.NameToLayer("onBoard");
-
     }
 }
