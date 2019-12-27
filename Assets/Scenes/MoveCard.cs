@@ -10,7 +10,7 @@ public class MoveCard : MonoBehaviour
     public int[] clickedData = new int[2];  //Data of selected card
 
     public Vector2 firstPos;    //first position of selected card
-    public Image[] cardImage = new Image[3];    //card image sprite
+    public Image[] cardImage;    //card image sprite
 
     public int whatIsHit;   //number of hit board
     playervariable a;   //variable
@@ -18,6 +18,7 @@ public class MoveCard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cardImage = new Image[5];
         firstPos = transform.position;
 
         for (int i = 0; i < 8; i++)
@@ -38,7 +39,10 @@ public class MoveCard : MonoBehaviour
     {
         cardImage[0] = transform.GetComponent<Image>();
         cardImage[1] = transform.GetChild(0).GetComponent<Image>();
-        cardImage[2] = transform.GetChild(0).GetChild(0).GetComponent<Image>();
+        cardImage[2] = transform.GetChild(0).GetChild(1).GetComponent<Image>();
+        cardImage[3] = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
+        cardImage[4] = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>();
+
         gameObject.layer = LayerMask.NameToLayer("Selected");
         
         for (int n = 0; n < 20; n++)    //checking data of selected card
@@ -86,8 +90,10 @@ public class MoveCard : MonoBehaviour
         {
             hit.collider.gameObject.transform.GetComponent<Image>().sprite = cardImage[0].sprite;
             hit.collider.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = cardImage[1].sprite;
-            hit.collider.gameObject.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardImage[2].sprite;
-
+            hit.collider.gameObject.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = cardImage[2].sprite;
+            hit.collider.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardImage[3].sprite;
+            hit.collider.gameObject.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = cardImage[4].sprite;
+            
             for (int n = 0; n < board.Length; n++)
             {
                 if (hit.collider.gameObject == board[n] && n < 8)
@@ -129,7 +135,11 @@ public class MoveCard : MonoBehaviour
 
         transform.GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
         transform.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
-        transform.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite; ;
+        transform.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+        transform.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+        transform.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+
+
         gameObject.layer = LayerMask.NameToLayer("onBoard");
     }
 }
