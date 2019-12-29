@@ -11,6 +11,7 @@ public class MoveCard : MonoBehaviour
 
     public Vector2 firstPos;    //first position of selected card
     public Image[] cardImage;    //card image sprite
+    public Text cardName;
 
     public int whatIsHit;   //number of hit board
     playervariable a;   //variable
@@ -42,8 +43,10 @@ public class MoveCard : MonoBehaviour
         cardImage[2] = transform.GetChild(0).GetChild(1).GetComponent<Image>();
         cardImage[3] = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
         cardImage[4] = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>();
-
-        gameObject.layer = LayerMask.NameToLayer("Selected");
+        cardName = transform.GetChild(0).GetChild(2).GetComponent<Text>();
+        
+        if(cardImage[0].sprite != cardImage[1].sprite)
+            gameObject.layer = LayerMask.NameToLayer("Selected");
         
         for (int n = 0; n < 20; n++)    //checking data of selected card
         {
@@ -52,14 +55,14 @@ public class MoveCard : MonoBehaviour
                 clickedData[0] = a.warehouse[n];
                 clickedData[1] = a.warehouselevel[n];
                 whatIsHit = n;
-                print("whatIsHit = " + n);
+                //print("whatIsHit = " + n);
             }
             if (this.gameObject == board[n] && n >= 8)
             {
                 clickedData[0] = a.board[n-8];
                 clickedData[1] = a.boardLevel[n-8];
                 whatIsHit = n;
-                print("whatIsHit = " + n);
+                //print("whatIsHit = " + n);
             }
         }
     }
@@ -93,6 +96,7 @@ public class MoveCard : MonoBehaviour
             hit.collider.gameObject.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = cardImage[2].sprite;
             hit.collider.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardImage[3].sprite;
             hit.collider.gameObject.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = cardImage[4].sprite;
+            hit.collider.gameObject.transform.GetChild(0).GetChild(2).GetComponent<Text>().text = cardName.text;
             
             for (int n = 0; n < board.Length; n++)
             {
@@ -100,16 +104,16 @@ public class MoveCard : MonoBehaviour
                 {
                     a.warehouse[n] = clickedData[0];
                     a.warehouselevel[n] = clickedData[1];
-                    print("SUCCESS_2ware");
-                    print("card : " + clickedData[0] + "\nstar : " + clickedData[1]);
+                    //print("SUCCESS_2ware");
+                    //print("card : " + clickedData[0] + "\nstar : " + clickedData[1]);
                 }
 
                 if (hit.collider.gameObject == board[n] && n >= 8)
                 {
                     a.board[n - 8] = clickedData[0];
                     a.boardLevel[n - 8] = clickedData[1];
-                    print("SUCCESS_2board");
-                    print("card : " + clickedData[0] + "\nstar : " + clickedData[1]);
+                    //print("SUCCESS_2board");
+                    //print("card : " + clickedData[0] + "\nstar : " + clickedData[1]);
                 }
             }
         }
@@ -138,8 +142,18 @@ public class MoveCard : MonoBehaviour
         transform.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
         transform.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
         transform.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+        transform.transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
 
 
         gameObject.layer = LayerMask.NameToLayer("onBoard");
+
+        StartCoroutine("Test");
+    }
+
+    IEnumerator Test()
+    {
+        yield return new WaitForSeconds(Time.deltaTime);
+        print(a.playerUnitType["물"] + " " + a.playerUnitType["불"] + " " + a.playerUnitType["나무"] + " " + a.playerUnitType["땅"] + " " + a.playerUnitType["빛"] + " " + a.playerUnitType["어둠"]);
+        print(a.playerUnitClass["전사"] + " " + a.playerUnitClass["마법사"] + " " + a.playerUnitClass["사수"] + " " + a.playerUnitClass["암살자"] + " " + a.playerUnitClass["기사"]);
     }
 }

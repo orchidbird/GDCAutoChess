@@ -59,7 +59,6 @@ public class Shop : MonoBehaviour
             }
         }
     }
-
     //상점 활성화 여부 바꾸기
     public void ShopSetActive()
     {

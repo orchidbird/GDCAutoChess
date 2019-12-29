@@ -21,10 +21,11 @@ public class reroll : MonoBehaviour
             a.UnitObject[i].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
             a.UnitObject[i].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("카드템플릿_1", typeof(Sprite)) as Sprite;
             a.UnitObject[i].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite =
-                Resources.Load("Synergy/속성_" + a.heroMap[a.name[a.num[i]-1].ToString()].heroType.ToString(), typeof(Sprite)) as Sprite;
+                Resources.Load("Synergy/속성_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroType.ToString(), typeof(Sprite)) as Sprite;
             a.UnitObject[i].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite =
-                Resources.Load("Synergy/클래스_" + a.heroMap[a.name[a.num[i]-1].ToString()].heroClass.ToString(), typeof(Sprite)) as Sprite;
-                       
+                Resources.Load("Synergy/클래스_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroClass.ToString(), typeof(Sprite)) as Sprite;
+            a.UnitObject[i].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].name.ToString();
+
             if (a.num[i] < 14)
 				a.UnitObject[i].transform.GetChild(1).GetComponent<Text>().text = "1$";
 			else
