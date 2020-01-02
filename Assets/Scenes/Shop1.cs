@@ -66,12 +66,23 @@ public class Shop1 : MonoBehaviour
 		{
 			if (a.warehouse[j] == -1)
 			{
-				if (a.num[i] < 14)
-					playervariable.playergold--;
-				else
-					playervariable.playergold -= 4;
-				//Resources에서 Unit~ sprite로 불러와서 warehouse에 집어넣기
-				Warehouse[j].GetComponent<Image>().sprite = Resources.Load("카드배경_1", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
+                if (a.num[i] < 14)
+                {
+                    if (playervariable.playergold != 0)
+                        playervariable.playergold--;
+                    else
+                        break;
+                }
+                else
+                {
+                    if (playervariable.playergold >= 4)
+                        playervariable.playergold -= 4;
+                    else
+                        break;
+                }
+
+                    //Resources에서 Unit~ sprite로 불러와서 warehouse에 집어넣기
+                    Warehouse[j].GetComponent<Image>().sprite = Resources.Load("카드배경_1", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
                 Warehouse[j].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
                 Warehouse[j].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("카드템플릿_1", typeof(Sprite)) as Sprite;
                 Warehouse[j].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = 
@@ -138,22 +149,6 @@ public class Shop1 : MonoBehaviour
                             Board[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Board[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Board[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
-
-                            //1성 카드들 중 첫번째 카드만 2성 이미지로 보여주기
-                            if (b == 0)
-                            {
-                                a.board[k] = a.num[i];      // ??
-                                a.boardLevel[k] = 2;        //창고에 있는 카드레벨 2로 만들기
-                                Board[k].GetComponent<Image>().sprite = Resources.Load("카드배경_2", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
-                                Board[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
-                                Board[k].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("카드템플릿_2", typeof(Sprite)) as Sprite;
-                                Board[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite =
-                                    Resources.Load("Synergy/속성_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroType.ToString(), typeof(Sprite)) as Sprite;
-                                Board[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite =
-                                    Resources.Load("Synergy/클래스_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroClass.ToString(), typeof(Sprite)) as Sprite;
-                                Board[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].name.ToString();
-                                b++;        // b=0일때만 작업 수행하기 때문에, 그 뒤로 발견되는 1성 카드들은 그냥 사라지기만 할 것이다.
-                            }
                         }
                     }
                 }
@@ -204,22 +199,6 @@ public class Shop1 : MonoBehaviour
                             Board[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Board[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Board[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
-
-                            //1성 카드들 중 첫번째 카드만 2성 이미지로 보여주기
-                            if (b == 0)
-                            {
-                                a.board[k] = a.num[i];      // ??
-                                a.boardLevel[k] = 3;        //창고에 있는 카드레벨 3로 만들기
-                                Board[k].GetComponent<Image>().sprite = Resources.Load("카드배경_3", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
-                                Board[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
-                                Board[k].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("카드템플릿_3", typeof(Sprite)) as Sprite;
-                                Board[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite =
-                                    Resources.Load("Synergy/속성_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroType.ToString(), typeof(Sprite)) as Sprite;
-                                Board[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite =
-                                    Resources.Load("Synergy/클래스_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroClass.ToString(), typeof(Sprite)) as Sprite;
-                                Board[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].name.ToString();
-                                b++;        // b=0일때만 작업 수행하기 때문에, 그 뒤로 발견되는 1성 카드들은 그냥 사라지기만 할 것이다.
-                            }
                         }
                     }
                 }
@@ -262,9 +241,23 @@ public class Shop1 : MonoBehaviour
 						}
 					}
 				}
+                for (int k = 0; k < 12; k++)
+                {
+                    if (a.board[k] == a.num[i] && a.boardLevel[k] == 1)
+                    {
+                        a.board[k] = -1;
+                        a.boardLevel[k] = 0;        //창고에 있는 카드 레벨 0으로 초기화
+                        Board[k].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                        Board[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                        Board[k].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite; ;//창고가 비었을 때 다시 창고 이미지 보여주기
+                        Board[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                        Board[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                        Board[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                    }
+                }
 
-				//2성 카드 3개면 3성 하나 만들기 (2성카드 하나 만드는 거랑 동일)
-				if (a.playerunitlevel2[a.num[i] - 1] == 3)
+                //2성 카드 3개면 3성 하나 만들기 (2성카드 하나 만드는 거랑 동일)
+                if (a.playerunitlevel2[a.num[i] - 1] == 3)
 				{
 					a.playerunitlevel2[a.num[i] - 1] = 0;
 					a.playerunitlevel3[a.num[i] - 1]++;
@@ -297,7 +290,21 @@ public class Shop1 : MonoBehaviour
 							}
 						}
 					}
-				}
+                    for (int k = 0; k < 12; k++)
+                    {
+                        if (a.board[k] == a.num[i] && a.boardLevel[k] == 2)
+                        {
+                            a.board[k] = -1;
+                            a.boardLevel[k] = 0;        //창고에 있는 카드 레벨 0으로 초기화
+                            Board[k].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                            Board[k].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                            Board[k].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite; ;//창고가 비었을 때 다시 창고 이미지 보여주기
+                            Board[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                            Board[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                            Board[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                        }
+                    }
+                }
 				ShopButton.SetActive(!ShopButton.active);  //ShopButton 활성화 여부 변경
 				a.shop[i] = false;  //shop = 골라진 칸
 				break;

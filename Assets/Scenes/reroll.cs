@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class reroll : MonoBehaviour
 {
-    public void click()
+    public void OnClick()
     {
 		playervariable a = GameObject.Find("field").GetComponent<playervariable>();
+        if(playervariable.playergold >= 2)
+            playervariable.playergold -= 2;
         for (int i = 0; i < 4; i++)
         {
             if (a.shop[i])
@@ -31,6 +33,14 @@ public class reroll : MonoBehaviour
 			else
 				a.UnitObject[i].transform.GetChild(1).GetComponent<Text>().text = "4$";
 			a.unit[a.num[i]-1]--;
+        }
+
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            OnClick();
         }
     }
 }

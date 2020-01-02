@@ -150,6 +150,54 @@ public class MoveCard : MonoBehaviour
         StartCoroutine("Test");
     }
 
+    void OnMouseOver()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            for (int n = 0; n < 20; n++)    //checking data of selected card
+            {
+                if (this.gameObject == board[n] && n < 8)
+                {
+                    if (a.warehouse[n] < 14)
+                    {
+                        playervariable.playergold += (int)Mathf.Pow(3,(a.warehouselevel[n] - 1));
+                    }
+                    else
+                    {
+                        playervariable.playergold += (int)Mathf.Pow(3, (a.warehouselevel[n] -  1)) * 4;
+                    }
+                    a.warehouse[n] = -1;
+                    a.warehouselevel[n] = 0;
+                    board[n].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                    board[n].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                    board[n].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                    board[n].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                    board[n].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                    board[n].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                }
+                if (this.gameObject == board[n] && n >= 8)
+                {
+                    if (a.board[n - 8] < 14)
+                    {
+                        playervariable.playergold += a.warehouselevel[n] * 3;
+                    }
+                    else
+                    {
+                        playervariable.playergold += a.warehouselevel[n] * 12;
+                    }
+                    a.board[n-8] = -1;
+                    a.boardLevel[n-8] = 0;        //창고에 있는 카드 레벨 0으로 초기화
+                    board[n].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                    board[n].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                    board[n].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                    board[n].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                    board[n].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                    board[n].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                }
+            }
+        }
+    }
+
     IEnumerator Test()
     {
         yield return new WaitForSeconds(Time.deltaTime);
