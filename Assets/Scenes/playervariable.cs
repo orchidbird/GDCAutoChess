@@ -8,12 +8,17 @@ public class Synergy
     public string name;
     public string heroType;
     public string heroClass;
+    public int health;
+    public int power;
 
-    public Synergy(string _name, string _heroType, string _heroClass)
+    public Synergy(string _name, string _heroType, string _heroClass, int _health, int _power)
     {
         this.name = _name;
         this.heroType = _heroType;
         this.heroClass = _heroClass;
+        this.health = _health;
+        this.power = _power;
+
     }
 
     public void Show()
@@ -21,8 +26,11 @@ public class Synergy
         Debug.Log(this.name);
         Debug.Log(this.heroType);
         Debug.Log(this.heroClass);
+        Debug.Log(this.health);
+        Debug.Log(this.power);
     }
 }
+
 
 public class playervariable : MonoBehaviour
 {
@@ -41,6 +49,7 @@ public class playervariable : MonoBehaviour
 	public int[] playerunitlevel2 = new int[16];
 	public int[] playerunitlevel3 = new int[16];
 
+    //보드 위의 유닛 시너지
     public Dictionary<string, int> playerUnitType = new Dictionary<string, int>();
     public Dictionary<string, int> playerUnitClass = new Dictionary<string, int>();
 
@@ -53,8 +62,12 @@ public class playervariable : MonoBehaviour
     //카드 속성
     public Dictionary<string, Synergy> heroMap = new Dictionary<string, Synergy>();
     public string[] nameOfHero = { "루키어스", "카샤스티", "영", "유진", "레이나", "그레네브", "칼드리치", "아르카디아", "루베리카", "라티스", "데우스", "지수", "노엘", "세피아", "에렌", "달케니르" };
-    public string[] heroType = { "물", "불", "나무", "땅", "빛", "어둠" };
+    public string[] heroType =  { "물", "불", "나무", "땅", "빛", "어둠" };
     public string[] heroClass = { "전사", "마법사", "사수", "암살자", "기사" };
+    public int[] heroHealth =   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+    public int[] heroPower =    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+
+    public bool[] whoIsOnBoard = new bool[16];
 
     public string textOfUISynergy;
 
@@ -104,44 +117,59 @@ public class playervariable : MonoBehaviour
 
     void TypeAndClass()
     {
+        //초기화
         for (int i = 0; i < 6; i++)
         {
             playerUnitType[heroType[i].ToString()] = 0;
         }
-
         for (int i = 0; i < 5; i++)
         {
             playerUnitClass[heroClass[i]] = 0;
         }
-
-        for (int i = 0; i < board.Length; i++)
+        for (int i = 0; i < 12; i++)
         {
-            if (board[i] > 0)
+            whoIsOnBoard[i] = false;
+        }
+
+        //조사
+        for (int i = 0; i < 12; i++)
+        {
+            if (board[i] != 0)
             {
-                playerUnitType[heroMap[nameOfHero[board[i]-1].ToString()].heroType]++;
-                playerUnitClass[heroMap[nameOfHero[board[i]-1].ToString()].heroClass]++;
+                if (whoIsOnBoard[board[i]-1] == false)
+                    whoIsOnBoard[board[i]-1] = true;
+            }
+        }
+
+        //시너지 추가
+        for (int i = 0; i < whoIsOnBoard.Length; i++)
+        {
+            if (whoIsOnBoard[i] == true)
+            {
+                playerUnitType[heroMap[nameOfHero[i].ToString()].heroType]++;
+                playerUnitClass[heroMap[nameOfHero[i].ToString()].heroClass]++;
             }
         }
     }
 
     void HeroStat()
     {
-        heroMap.Add(nameOfHero[0], new Synergy(nameOfHero[0], heroType[0], heroClass[0]));
-        heroMap.Add(nameOfHero[1], new Synergy(nameOfHero[1], heroType[0], heroClass[2]));
-        heroMap.Add(nameOfHero[2], new Synergy(nameOfHero[2], heroType[0], heroClass[3]));
-        heroMap.Add(nameOfHero[3], new Synergy(nameOfHero[3], heroType[0], heroClass[4]));
-        heroMap.Add(nameOfHero[4], new Synergy(nameOfHero[4], heroType[1], heroClass[1]));
-        heroMap.Add(nameOfHero[5], new Synergy(nameOfHero[5], heroType[1], heroClass[2]));
-        heroMap.Add(nameOfHero[6], new Synergy(nameOfHero[6], heroType[1], heroClass[3]));
-        heroMap.Add(nameOfHero[7], new Synergy(nameOfHero[7], heroType[2], heroClass[0]));
-        heroMap.Add(nameOfHero[8], new Synergy(nameOfHero[8], heroType[2], heroClass[1]));
-        heroMap.Add(nameOfHero[9], new Synergy(nameOfHero[9], heroType[3], heroClass[0]));
-        heroMap.Add(nameOfHero[10], new Synergy(nameOfHero[10], heroType[3], heroClass[1]));
-        heroMap.Add(nameOfHero[11], new Synergy(nameOfHero[11], heroType[4], heroClass[1]));
-        heroMap.Add(nameOfHero[12], new Synergy(nameOfHero[12], heroType[4], heroClass[4]));
-        heroMap.Add(nameOfHero[13], new Synergy(nameOfHero[13], heroType[5], heroClass[0]));
-        heroMap.Add(nameOfHero[14], new Synergy(nameOfHero[14], heroType[5], heroClass[1]));
-        heroMap.Add(nameOfHero[15], new Synergy(nameOfHero[15], heroType[5], heroClass[4]));
+        heroMap.Add(nameOfHero[0], new Synergy(nameOfHero[0], heroType[0], heroClass[0], heroHealth[0], heroPower[0]));
+        heroMap.Add(nameOfHero[1], new Synergy(nameOfHero[1], heroType[0], heroClass[2], heroHealth[1], heroPower[1]));
+        heroMap.Add(nameOfHero[2], new Synergy(nameOfHero[2], heroType[0], heroClass[3], heroHealth[2], heroPower[2]));
+        heroMap.Add(nameOfHero[3], new Synergy(nameOfHero[3], heroType[0], heroClass[4], heroHealth[3], heroPower[3]));
+        heroMap.Add(nameOfHero[4], new Synergy(nameOfHero[4], heroType[1], heroClass[1], heroHealth[4], heroPower[4]));
+        heroMap.Add(nameOfHero[5], new Synergy(nameOfHero[5], heroType[1], heroClass[2], heroHealth[5], heroPower[5]));
+        heroMap.Add(nameOfHero[6], new Synergy(nameOfHero[6], heroType[1], heroClass[3], heroHealth[6], heroPower[6]));
+        heroMap.Add(nameOfHero[7], new Synergy(nameOfHero[7], heroType[2], heroClass[0], heroHealth[7], heroPower[7]));
+        heroMap.Add(nameOfHero[8], new Synergy(nameOfHero[8], heroType[2], heroClass[1], heroHealth[8], heroPower[8]));
+        heroMap.Add(nameOfHero[9], new Synergy(nameOfHero[9], heroType[3], heroClass[0], heroHealth[9], heroPower[9]));
+        heroMap.Add(nameOfHero[10], new Synergy(nameOfHero[10], heroType[3], heroClass[1], heroHealth[10], heroPower[10]));
+        heroMap.Add(nameOfHero[11], new Synergy(nameOfHero[11], heroType[4], heroClass[1], heroHealth[11], heroPower[11]));
+        heroMap.Add(nameOfHero[12], new Synergy(nameOfHero[12], heroType[4], heroClass[4], heroHealth[12], heroPower[12]));
+        heroMap.Add(nameOfHero[13], new Synergy(nameOfHero[13], heroType[5], heroClass[0], heroHealth[13], heroPower[13]));
+        heroMap.Add(nameOfHero[14], new Synergy(nameOfHero[14], heroType[5], heroClass[1], heroHealth[14], heroPower[14]));
+        heroMap.Add(nameOfHero[15], new Synergy(nameOfHero[15], heroType[5], heroClass[4], heroHealth[15], heroPower[15]));
 
         for (int i = 0; i < 6; i++)
         {
