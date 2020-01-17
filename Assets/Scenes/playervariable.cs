@@ -44,16 +44,22 @@ public class playervariable : MonoBehaviour
 	public int[] num = new int[4];                  //유닛 종류
 	public int[] unit = new int[16];                //상점에 남아있는 유닛 풀
 
+    public static int Round = 1;
+
 	//플레이어가 가지고 있는 n성 카드의 개수
 	public int[] playerunitlevel1 = new int[16];
 	public int[] playerunitlevel2 = new int[16];
 	public int[] playerunitlevel3 = new int[16];
 
+    //플레이어 능력치
+    public static int playerlevel = 1;
+    public static int playerhealth = 100;
+    public static int playerexp = 0;
+    public static int playergold;
+
     //보드 위의 유닛 시너지
     public Dictionary<string, int> playerUnitType = new Dictionary<string, int>();
     public Dictionary<string, int> playerUnitClass = new Dictionary<string, int>();
-
-	public static int playergold;								//골드
 
     //보드에 있는 유닛의 종류
     public int[] board = new int[12];
