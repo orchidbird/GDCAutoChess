@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//시너지 관련 스크립트
 public class CardStat : MonoBehaviour
 {
     playervariable a;

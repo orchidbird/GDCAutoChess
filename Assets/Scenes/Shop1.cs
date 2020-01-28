@@ -33,6 +33,9 @@ public class Shop1 : MonoBehaviour
                     = Resources.Load("Synergy/클래스_" + a.heroMap[a.nameOfHero[a.num[i] - 1].ToString()].heroClass.ToString(), typeof(Sprite)) as Sprite;
                 gameObject.transform.GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].name.ToString();
 
+                gameObject.transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].health.ToString();
+                gameObject.transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].power.ToString();
+
                 if (a.num[i] < 14)
 					gameObject.transform.GetChild(1).GetComponent<Text>().text = "1$";
 				else
@@ -91,6 +94,9 @@ public class Shop1 : MonoBehaviour
                     Resources.Load("Synergy/클래스_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroClass.ToString(), typeof(Sprite)) as Sprite;
                 Warehouse[j].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].name.ToString();
 
+                Warehouse[j].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].health.ToString();
+                Warehouse[j].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].power.ToString();
+
 
                 //warehouse의 j번째 칸에 불러온 카드 집어넣는다
                 a.warehouse[j] = a.num[i];
@@ -120,6 +126,9 @@ public class Shop1 : MonoBehaviour
                             Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Warehouse[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
 
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = null;
+
                             //1성 카드들 중 첫번째 카드만 2성 이미지로 보여주기
                             if (b == 0)
 							{
@@ -133,6 +142,10 @@ public class Shop1 : MonoBehaviour
                                 Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite =
                                     Resources.Load("Synergy/클래스_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroClass.ToString(), typeof(Sprite)) as Sprite;
                                 Warehouse[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].name.ToString();
+                                
+                                Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = (a.heroMap[a.nameOfHero[a.num[i] - 1]].health * 2).ToString();
+                                Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = (a.heroMap[a.nameOfHero[a.num[i] - 1]].power * 2).ToString();
+
                                 b++;        // b=0일때만 작업 수행하기 때문에, 그 뒤로 발견되는 1성 카드들은 그냥 사라지기만 할 것이다.
 							}
 						}
@@ -149,6 +162,9 @@ public class Shop1 : MonoBehaviour
                             Board[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Board[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Board[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                        
+                            Board[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                            Board[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = null;
                         }
                     }
                 }
@@ -171,6 +187,10 @@ public class Shop1 : MonoBehaviour
                             Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Warehouse[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                            
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = null;
+
                             if (b == 0)
 							{
 								a.warehouse[k] = a.num[i];
@@ -183,6 +203,10 @@ public class Shop1 : MonoBehaviour
                                 Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite =
                                     Resources.Load("Synergy/클래스_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroClass.ToString(), typeof(Sprite)) as Sprite;
                                 Warehouse[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].name.ToString();
+                                
+                                Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = (a.heroMap[a.nameOfHero[a.num[i] - 1]].health * 3).ToString();
+                                Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = (a.heroMap[a.nameOfHero[a.num[i] - 1]].power * 3).ToString();
+
                                 b++;
 							}
 						}
@@ -199,6 +223,10 @@ public class Shop1 : MonoBehaviour
                             Board[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Board[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Board[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                        
+                            Board[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                            Board[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = null;
+
                         }
                     }
                 }
@@ -224,6 +252,9 @@ public class Shop1 : MonoBehaviour
                         Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                         Warehouse[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
 
+                        Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                        Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = null;
+
                         //1성 카드들 중 첫번째 카드만 2성 이미지로 보여주기
                         if (b == 0)
 						{
@@ -237,6 +268,10 @@ public class Shop1 : MonoBehaviour
                             Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite =
                                 Resources.Load("Synergy/클래스_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroClass.ToString(), typeof(Sprite)) as Sprite;
                             Warehouse[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].name.ToString();
+                           
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = (a.heroMap[a.nameOfHero[a.num[i] - 1]].health * 3).ToString();
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = (a.heroMap[a.nameOfHero[a.num[i] - 1]].power * 3).ToString();
+
                             b++;        // b=0일때만 작업 수행하기 때문에, 그 뒤로 발견되는 1성 카드들은 그냥 사라지기만 할 것이다.
 						}
 					}
@@ -253,6 +288,10 @@ public class Shop1 : MonoBehaviour
                         Board[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                         Board[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                         Board[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                    
+                        Board[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                        Board[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = null;
+
                     }
                 }
 
@@ -274,6 +313,10 @@ public class Shop1 : MonoBehaviour
                             Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Warehouse[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                            
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                            Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = null;
+
                             if (b == 0)
 							{
 								a.warehouse[k] = a.num[i];
@@ -286,6 +329,10 @@ public class Shop1 : MonoBehaviour
                                 Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite =
                                     Resources.Load("Synergy/클래스_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroClass.ToString(), typeof(Sprite)) as Sprite;
                                 Warehouse[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].name.ToString();
+                           
+                                Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = (a.heroMap[a.nameOfHero[a.num[i] - 1]].health * 3).ToString();
+                                Warehouse[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = (a.heroMap[a.nameOfHero[a.num[i] - 1]].power * 3).ToString();
+
                                 b++;
 							}
 						}
@@ -302,6 +349,10 @@ public class Shop1 : MonoBehaviour
                             Board[k].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Board[k].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                             Board[k].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                        
+                            Board[k].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                            Board[k].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = null;
+  
                         }
                     }
                 }

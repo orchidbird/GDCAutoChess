@@ -11,7 +11,7 @@ public class MoveCard : MonoBehaviour
 
     public Vector2 firstPos;    //first position of selected card
     public Image[] cardImage;    //card image sprite
-    public Text cardName;
+    public string[] cardStat = new string[3];
 
     public int whatIsHit;   //number of hit board
     playervariable a;   //variable
@@ -43,9 +43,12 @@ public class MoveCard : MonoBehaviour
         cardImage[2] = transform.GetChild(0).GetChild(1).GetComponent<Image>();
         cardImage[3] = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
         cardImage[4] = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>();
-        cardName = transform.GetChild(0).GetChild(2).GetComponent<Text>();
-        
-        if(cardImage[0].sprite != cardImage[1].sprite)
+
+        cardStat[0] = transform.GetChild(0).GetChild(2).GetComponent<Text>().text;
+        cardStat[1] = transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text;
+        cardStat[2] = transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text;
+
+        if (cardImage[0].sprite != cardImage[1].sprite)
             gameObject.layer = LayerMask.NameToLayer("Selected");
         
         for (int n = 0; n < 20; n++)    //checking data of selected card
@@ -96,8 +99,12 @@ public class MoveCard : MonoBehaviour
             hit.collider.gameObject.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = cardImage[2].sprite;
             hit.collider.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardImage[3].sprite;
             hit.collider.gameObject.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = cardImage[4].sprite;
-            hit.collider.gameObject.transform.GetChild(0).GetChild(2).GetComponent<Text>().text = cardName.text;
-            
+
+            hit.collider.gameObject.transform.GetChild(0).GetChild(2).GetComponent<Text>().text = cardStat[0];
+            hit.collider.gameObject.transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = cardStat[1];
+            hit.collider.gameObject.transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = cardStat[2];
+
+
             for (int n = 0; n < board.Length; n++)
             {
                 if (hit.collider.gameObject == board[n] && n < 8)
@@ -142,7 +149,10 @@ public class MoveCard : MonoBehaviour
         transform.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
         transform.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
         transform.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+
         transform.transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+        transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+        transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = null;
 
 
         gameObject.layer = LayerMask.NameToLayer("onBoard");
@@ -173,7 +183,11 @@ public class MoveCard : MonoBehaviour
                     board[n].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                     board[n].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                     board[n].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+
                     board[n].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                    board[n].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                    board[n].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = null;
+
                 }
                 if (this.gameObject == board[n] && n >= 8)
                 {
@@ -192,7 +206,10 @@ public class MoveCard : MonoBehaviour
                     board[n].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                     board[n].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
                     board[n].transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+
                     board[n].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                    board[n].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = null;
+                    board[n].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = null;
                 }
             }
         }

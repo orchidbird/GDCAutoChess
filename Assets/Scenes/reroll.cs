@@ -28,6 +28,9 @@ public class reroll : MonoBehaviour
                 Resources.Load("Synergy/클래스_" + a.heroMap[a.nameOfHero[a.num[i]-1].ToString()].heroClass.ToString(), typeof(Sprite)) as Sprite;
             a.UnitObject[i].transform.GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].name.ToString();
 
+            a.UnitObject[i].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].health.ToString();
+            a.UnitObject[i].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].power.ToString();
+
             if (a.num[i] < 14)
 				a.UnitObject[i].transform.GetChild(1).GetComponent<Text>().text = "1$";
 			else

@@ -70,10 +70,10 @@ public class playervariable : MonoBehaviour
     public string[] nameOfHero = { "루키어스", "카샤스티", "영", "유진", "레이나", "그레네브", "칼드리치", "아르카디아", "루베리카", "라티스", "데우스", "지수", "노엘", "세피아", "에렌", "달케니르" };
     public string[] heroType =  { "물", "불", "나무", "땅", "빛", "어둠" };
     public string[] heroClass = { "전사", "마법사", "사수", "암살자", "기사" };
-    public int[] heroHealth =   { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
-    public int[] heroPower =    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+    public int[] heroHealth =   { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    public int[] heroPower =    { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 
-    public bool[] whoIsOnBoard = new bool[16];
+    public bool[] whoIsOnBoard = new bool[16];  //보드 위에 있는 카드 탐색
 
     public string textOfUISynergy;
 
@@ -140,7 +140,7 @@ public class playervariable : MonoBehaviour
         //조사
         for (int i = 0; i < 12; i++)
         {
-            if (board[i] != 0)
+            if (board[i] > 0)
             {
                 if (whoIsOnBoard[board[i]-1] == false)
                     whoIsOnBoard[board[i]-1] = true;
