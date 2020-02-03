@@ -162,6 +162,9 @@ public class MoveCard : MonoBehaviour
 
     void OnMouseOver()
     {
+        if (this.gameObject.transform.GetComponent<Image>().sprite.name == "창고" && this.tag == "Selected")
+            this.gameObject.layer = LayerMask.NameToLayer("onBoard");
+
         if(Input.GetKeyDown(KeyCode.E))
         {
             for (int n = 0; n < 20; n++)    //checking data of selected card
@@ -193,11 +196,12 @@ public class MoveCard : MonoBehaviour
                 {
                     if (a.board[n - 8] < 14)
                     {
-                        playervariable.playergold += a.warehouselevel[n] * 3;
+                        playervariable.playergold += a.boardLevel[n] * 3;
+                        print(a.boardLevel[n]);
                     }
                     else
                     {
-                        playervariable.playergold += a.warehouselevel[n] * 12;
+                        playervariable.playergold += a.boardLevel[n] * 12;
                     }
                     a.board[n-8] = -1;
                     a.boardLevel[n-8] = 0;        //창고에 있는 카드 레벨 0으로 초기화

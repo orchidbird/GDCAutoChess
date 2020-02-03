@@ -41,7 +41,7 @@ public class RealTime : MonoBehaviour
 
     void realtime()
     {
-        round.text = "Round : " + playervariable.Round;
-        limit.text = "Time : " + string.Format("{0:N0}",time);
+        round.text =  "ROUND " + playervariable.Round.ToString();
+        limit.text = string.Format("{0:N0}",time);
     }
 }
