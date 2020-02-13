@@ -6,6 +6,7 @@ TagManager:
   tags:
   - "\uB8E8\uD0A4\uC5B4\uC2A4 1\uC131"
   - Board
+  - Board2
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - 
   - Selected
   - onBoard
-  - 
-  - 
+  - Selected2
+  - onBoard2
   - 
   - 
   - 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RealTime : MonoBehaviour
 {
-    public float time;
+    public static float time;
     reroll a;
     Text round;
     Text limit;
@@ -28,13 +28,17 @@ public class RealTime : MonoBehaviour
                 time = 0;
             }
         }
-        else
+        if(time == 0)
         {
-            playervariable.Round++;
-            playervariable.playerexp += 2;
-            playervariable.playergold += 7;
-            a.OnClick();
-            time = 15f;
+            //playervariable.Round++;
+            //playervariable.playerexp += 2;
+            //playervariable.playergold += 7;
+
+            //playervariable.player2exp += 2;
+            //playervariable.player2gold += 7;
+
+            //a.OnClick();
+            //time = 15f;
         }
         realtime();
     }
@@ -43,5 +47,10 @@ public class RealTime : MonoBehaviour
     {
         round.text =  "ROUND " + playervariable.Round.ToString();
         limit.text = string.Format("{0:N0}",time);
+    }
+
+    public void SkipButton()
+    {
+        time = 0;
     }
 }

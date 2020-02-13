@@ -7,9 +7,23 @@ public class reroll : MonoBehaviour
 {
     public void OnClick()
     {
+        RerollButton();
+        if (Status.turn == 1)
+        {
+            if (playervariable.playergold >= 2)
+                playervariable.playergold -= 2;
+        }
+        else if (Status.turn == 0)
+        {
+            if (playervariable.player2gold >= 2)
+                playervariable.player2gold -= 2;
+        }
+    }
+
+    public static void RerollButton()
+    {
 		playervariable a = GameObject.Find("field").GetComponent<playervariable>();
-        if(playervariable.playergold >= 2)
-            playervariable.playergold -= 2;
+        
         for (int i = 0; i < 4; i++)
         {
             if (a.shop[i])
