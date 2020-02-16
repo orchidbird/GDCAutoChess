@@ -339,20 +339,23 @@ public class MoveCard : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            if (this.gameObject.transform.GetComponent<Image>().sprite.name == "창고")
+                return;
             if(turn == 1)
             {
                 for (int n = 0; n < 20; n++)    //checking data of selected card
                 {
                     if (this.gameObject == board[n] && n < 8)
                     {
-                        if (a.warehouse[n] < 14)
-                        {
-                            playervariable.playergold += (int)Mathf.Pow(3, (a.warehouselevel[n] - 1));
-                        }
-                        else
-                        {
-                            playervariable.playergold += (int)Mathf.Pow(3, (a.warehouselevel[n] - 1)) * 4;
-                        }
+                        //if (a.warehouse[n] < 14)
+                        //{
+                        //    playervariable.playergold += (int)Mathf.Pow(3, (a.warehouselevel[n] - 1));
+                        //}
+                        //else
+                        //{
+                        //    playervariable.playergold += (int)Mathf.Pow(3, (a.warehouselevel[n] - 1)) * 4;
+                        //}
+                        playervariable.playergold += (int)Mathf.Pow(3, (a.warehouselevel[n] - 1)) * a.heroCost[a.warehouse[n]-1];
                         a.warehouse[n] = -1;
                         a.warehouselevel[n] = 0;
                         board[n].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
@@ -368,15 +371,15 @@ public class MoveCard : MonoBehaviour
                     }
                     if (this.gameObject == board[n] && n >= 8)
                     {
-                        if (a.board[n - 8] < 14)
-                        {
-                            playervariable.playergold += a.boardLevel[n] * 3;
-                            print(a.boardLevel[n]);
-                        }
-                        else
-                        {
-                            playervariable.playergold += a.boardLevel[n] * 12;
-                        }
+                        //if (a.board[n - 8] < 14)
+                        //{
+                        //    playervariable.playergold += a.boardLevel[n] * 3;
+                        //}
+                        //else
+                        //{
+                        //    playervariable.playergold += a.boardLevel[n] * 12;
+                        //}
+                        playervariable.playergold += (int)Mathf.Pow(3, (a.boardLevel[n - 8] - 1)) * a.heroCost[a.board[n - 8]-1];
                         a.board[n - 8] = -1;
                         a.boardLevel[n - 8] = 0;        //창고에 있는 카드 레벨 0으로 초기화
                         board[n].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
@@ -396,14 +399,15 @@ public class MoveCard : MonoBehaviour
                 {
                     if (this.gameObject == board[n] && n < 8)
                     {
-                        if (a.warehouse[n] < 14)
-                        {
-                            playervariable.player2gold += (int)Mathf.Pow(3, (a.warehouse2level[n] - 1));
-                        }
-                        else
-                        {
-                            playervariable.player2gold += (int)Mathf.Pow(3, (a.warehouse2level[n] - 1)) * 4;
-                        }
+                        //if (a.warehouse[n] < 14)
+                        //{
+                        //    playervariable.player2gold += (int)Mathf.Pow(3, (a.warehouse2level[n] - 1));
+                        //}
+                        //else
+                        //{
+                        //    playervariable.player2gold += (int)Mathf.Pow(3, (a.warehouse2level[n] - 1)) * 4;
+                        //}
+                        playervariable.player2gold += (int)Mathf.Pow(3, (a.warehouse2level[n] - 1)) * a.heroCost[a.warehouse2[n]-1];
                         a.warehouse2[n] = -1;
                         a.warehouse2level[n] = 0;
                         board[n].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
@@ -419,15 +423,16 @@ public class MoveCard : MonoBehaviour
                     }
                     if (this.gameObject == board[n] && n >= 8)
                     {
-                        if (a.board2[n - 8] < 14)
-                        {
-                            playervariable.player2gold += a.board2Level[n] * 3;
-                            print(a.boardLevel[n]);
-                        }
-                        else
-                        {
-                            playervariable.player2gold += a.board2Level[n] * 12;
-                        }
+                        //if (a.board2[n - 8] < 14)
+                        //{
+                        //    playervariable.player2gold += a.board2Level[n] * 3;
+                        //    print(a.boardLevel[n]);
+                        //}
+                        //else
+                        //{
+                        //    playervariable.player2gold += a.board2Level[n] * 12;
+                        //}
+                        playervariable.player2gold += (int)Mathf.Pow(3, (a.board2Level[n-8] - 1)) * a.heroCost[a.board2[n-8]-1];
                         a.board2[n - 8] = -1;
                         a.board2Level[n - 8] = 0;        //창고에 있는 카드 레벨 0으로 초기화
                         board[n].GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;

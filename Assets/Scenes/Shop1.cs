@@ -24,8 +24,6 @@ public class Shop1 : MonoBehaviour
 
             if (ShopButton.name == "상점" + (i + 1).ToString())
             {
-                print(i + " " + synergy.name + " " + synergy.heroType + " " + synergy.heroClass);
-
                 gameObject.GetComponent<Image>().sprite = Resources.Load("카드배경_1", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
                 gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
                 gameObject.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("카드템플릿_1", typeof(Sprite)) as Sprite;
@@ -38,10 +36,7 @@ public class Shop1 : MonoBehaviour
                 gameObject.transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].health.ToString();
                 gameObject.transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].power.ToString();
 
-                if (a.num[i] < 14)
-					gameObject.transform.GetChild(1).GetComponent<Text>().text = "1$";
-				else
-					gameObject.transform.GetChild(1).GetComponent<Text>().text = "4$";
+                gameObject.transform.GetChild(1).GetComponent<Text>().text = a.heroCost[a.num[i]-1] + "G";
 				break;
             }
         }
@@ -89,20 +84,21 @@ public class Shop1 : MonoBehaviour
             {
                 if (a.warehouse[j] == -1)
                 {
-                    if (a.num[i] < 14)
-                    {
-                        if (playervariable.playergold != 0)
-                            playervariable.playergold--;
-                        else
-                            break;
-                    }
-                    else
-                    {
-                        if (playervariable.playergold >= 4)
-                            playervariable.playergold -= 4;
-                        else
-                            break;
-                    }
+                    //if (a.num[i] < 14)
+                    //{
+                    //    if (playervariable.playergold != 0)
+                    //        playervariable.playergold--;
+                    //    else
+                    //        break;
+                    //}
+                    //else
+                    //{
+                    //    if (playervariable.playergold >= 4)
+                    //        playervariable.playergold -= 4;
+                    //    else
+                    //        break;
+                    //}
+                    playervariable.playergold -= a.heroCost[a.num[i]-1];
 
                     //Resources에서 Unit~ sprite로 불러와서 warehouse에 집어넣기
                     Warehouse[j].GetComponent<Image>().sprite = Resources.Load("카드배경_1", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
@@ -250,7 +246,7 @@ public class Shop1 : MonoBehaviour
                             }
                         }
                     }
-                    ShopButton.SetActive(!ShopButton.active);  //ShopButton 활성화 여부 변경
+                    ShopButton.SetActive(!ShopButton.activeSelf);  //ShopButton 활성화 여부 변경
                     a.shop[i] = false;  //shop = 골라진 칸
                     break;
                 }
@@ -376,7 +372,7 @@ public class Shop1 : MonoBehaviour
                             }
                         }
                     }
-                    ShopButton.SetActive(!ShopButton.active);  //ShopButton 활성화 여부 변경
+                    ShopButton.SetActive(!ShopButton.activeSelf);  //ShopButton 활성화 여부 변경
                     a.shop[i] = false;  //shop = 골라진 칸
                     break;
                 }
@@ -399,20 +395,21 @@ public class Shop1 : MonoBehaviour
             {
                 if (a.warehouse2[j] == -1)
                 {
-                    if (a.num[i] < 14)
-                    {
-                        if (playervariable.player2gold != 0)
-                            playervariable.player2gold--;
-                        else
-                            break;
-                    }
-                    else
-                    {
-                        if (playervariable.player2gold >= 4)
-                            playervariable.player2gold -= 4;
-                        else
-                            break;
-                    }
+                    //if (a.num[i] < 14)
+                    //{
+                    //    if (playervariable.player2gold != 0)
+                    //        playervariable.player2gold--;
+                    //    else
+                    //        break;
+                    //}
+                    //else
+                    //{
+                    //    if (playervariable.player2gold >= 4)
+                    //        playervariable.player2gold -= 4;
+                    //    else
+                    //        break;
+                    //}
+                    playervariable.player2gold -= a.heroCost[a.num[i] - 1];
 
                     //Resources에서 Unit~ sprite로 불러와서 warehouse에 집어넣기
                     Warehouse[j].GetComponent<Image>().sprite = Resources.Load("카드배경_1", typeof(Sprite)) as Sprite; //카드 이미지 보여주기
@@ -560,7 +557,7 @@ public class Shop1 : MonoBehaviour
                             }
                         }
                     }
-                    ShopButton.SetActive(!ShopButton.active);  //ShopButton 활성화 여부 변경
+                    ShopButton.SetActive(!ShopButton.activeSelf);  //ShopButton 활성화 여부 변경
                     a.shop[i] = false;  //shop = 골라진 칸
                     break;
                 }
@@ -686,7 +683,7 @@ public class Shop1 : MonoBehaviour
                             }
                         }
                     }
-                    ShopButton.SetActive(!ShopButton.active);  //ShopButton 활성화 여부 변경
+                    ShopButton.SetActive(!ShopButton.activeSelf);  //ShopButton 활성화 여부 변경
                     a.shop[i] = false;  //shop = 골라진 칸
                     break;
                 }

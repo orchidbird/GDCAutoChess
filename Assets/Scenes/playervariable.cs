@@ -46,8 +46,9 @@ public class playervariable : MonoBehaviour
     public string[] nameOfHero = { "루키어스", "카샤스티", "영", "유진", "레이나", "그레네브", "칼드리치", "아르카디아", "루베리카", "라티스", "데우스", "지수", "노엘", "세피아", "에렌", "달케니르" };
     public string[] heroType = { "물", "불", "나무", "땅", "빛", "어둠" };
     public string[] heroClass = { "전사", "마법사", "사수", "암살자", "기사" };
-    public int[] heroHealth = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-    public int[] heroPower = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    public int[] heroHealth = { 12, 8, 5, 3, 9, 2, 3, 9, 5, 7, 6, 4, 11, 6, 2, 5 };
+    public int[] heroPower = { 4, 4, 3, 1, 7, 2, 9, 3, 1, 0, 6, 4, 5, 2, 2, 3 };
+    public int[] heroCost = { 4, 3, 2, 1, 4, 1, 3, 3, 2, 1, 3, 2, 4, 2, 1, 2 };
 
     ///////////////////////////플레이어 1/////////////////////////////////
 
@@ -139,11 +140,11 @@ public class playervariable : MonoBehaviour
             player2unitlevel3[i] = 0;
         }
 
-		//랜덤 숫자 받아오기
-		for (int i = 0; i < 4; i++)
+        //첫 상점
+        for (int i = 0; i < 4; i++)
 		{
 			//range는 카드 종류의 수
-			num[i] = Random.Range(1, 5);
+			num[i] = Random.Range(1, 17);
 			if (unit[num[i] - 1] != 0)
 			{
 				unit[num[i] - 1]--;
@@ -153,6 +154,7 @@ public class playervariable : MonoBehaviour
 				i--;
 			}
 		}
+        //print(num[0] +" "+ num[1] + " " + num[2] + " " + num[3]);
 
 		playergold = 100;
         player2gold = 100;

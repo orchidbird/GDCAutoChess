@@ -178,18 +178,16 @@ public class Status : MonoBehaviour
             //첫 한턴 씩은 골드와 경험치 안오름
             if (turn == 1 && playervariable.Round > 3) //1P 차례 끝나고 2P차례 시작할 때의 일
             {
-                print(playervariable.Round);
                 playervariable.player2exp += 2;
                 playervariable.player2gold += 7;
             }
             else if(turn == 0)
             {
-                print(playervariable.Round);
                 playervariable.playerexp += 2;
                 playervariable.playergold += 7;
             }
 
-            RealTime.time = 15f;
+            RealTime.time = RealTime.roundTime;
         }
 
 

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class RealTime : MonoBehaviour
 {
     public static float time;
+    public readonly static float roundTime = 30f;
+
     reroll a;
     Text round;
     Text limit;
@@ -13,7 +15,7 @@ public class RealTime : MonoBehaviour
     void Start()
     {
         a = GameObject.Find("리롤").GetComponent<reroll>();
-        time = 15f;
+        time = roundTime;
         round = transform.GetChild(0).gameObject.GetComponent<Text>();
         limit = transform.GetChild(1).gameObject.GetComponent<Text>();
     }
@@ -23,30 +25,26 @@ public class RealTime : MonoBehaviour
         if (time != 0)
         {
             time -= Time.deltaTime;
+
+            float n =1 - (time / 10f);
+            if (n > 0)
+                limit.color = new Color(n, 0, 0);
+            else
+                limit.color = new Color(0, 0, 0);
             if (time <= 0)
             {
                 time = 0;
             }
         }
-        if(time == 0)
-        {
-            //playervariable.Round++;
-            //playervariable.playerexp += 2;
-            //playervariable.playergold += 7;
-
-            //playervariable.player2exp += 2;
-            //playervariable.player2gold += 7;
-
-            //a.OnClick();
-            //time = 15f;
-        }
-        realtime();
+        TimeText();
     }
 
-    void realtime()
+    void TimeText()
     {
+        
         round.text =  "ROUND " + playervariable.Round.ToString();
         limit.text = string.Format("{0:N0}",time);
+        
     }
 
     public void SkipButton()

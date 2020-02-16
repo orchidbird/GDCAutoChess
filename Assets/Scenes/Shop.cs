@@ -62,7 +62,7 @@ public class Shop : MonoBehaviour
     //상점 활성화 여부 바꾸기
     public void ShopSetActive()
     {
-        if (!ShopObject.active)
+        if (!ShopObject.activeSelf)
         {
             for(int i = 0; i < 4; i++)
             {
@@ -76,7 +76,7 @@ public class Shop : MonoBehaviour
                 UnitObject[i].SetActive(false);
             }
         }
-        ShopObject.SetActive(!ShopObject.active);
-        reroll.SetActive(!reroll.active);
+        ShopObject.SetActive(!ShopObject.activeSelf);
+        reroll.SetActive(!reroll.activeSelf);
     }
 }

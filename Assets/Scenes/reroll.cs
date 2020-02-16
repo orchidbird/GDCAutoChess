@@ -45,11 +45,9 @@ public class reroll : MonoBehaviour
             a.UnitObject[i].transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].health.ToString();
             a.UnitObject[i].transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].power.ToString();
 
-            if (a.num[i] < 14)
-				a.UnitObject[i].transform.GetChild(1).GetComponent<Text>().text = "1$";
-			else
-				a.UnitObject[i].transform.GetChild(1).GetComponent<Text>().text = "4$";
-			a.unit[a.num[i]-1]--;
+            a.UnitObject[i].transform.GetChild(1).GetComponent<Text>().text = a.heroCost[a.num[i]-1] + "G";
+
+            a.unit[a.num[i]-1]--;
         }
 
     }
