@@ -11,8 +11,8 @@ public class Status : MonoBehaviour
     public Text whoseTurn;
     public Text Exp1;
     public Text Exp2;
-    public Text Level1;
-    public Text Level2;
+    public static Text Level1;
+    public static Text Level2;
     public Text Gold1;
     public Text Gold2;
     public Text synergyInfo;
@@ -22,6 +22,20 @@ public class Status : MonoBehaviour
     public int requiredexp2 = 2;
     public int[] typeLimit = { 2, 3, 2, 2, 2, 3 };
     public int[] classLimit = { 2, 2, 2, 2, 3 };
+    public string[] typeExplain = { "불속성 상대에게 2배의 피해", "나무속성 상대에게 2배의 피해", "땅속성 상대에게 2배의 피해", 
+                                    "물속성 상대에게 2배의 피해", "어둠속성 상대에게 2배의 피해", "빛속성 상대에게 2배의 피해"};
+
+    public string[][] classExplain = { new string[2] { "체력 +3", "체력 +6" }, new string[2] { "공격력 +2", "공격력 +4" }, 
+                                       new string[2] { "명치 대미지 1.5배", null }, new string[2] { "매턴 명치 대미지 2", null },
+                                       new string[2] { "받는 피해량 -3", "받는 피해량 -6" }};
+
+    public int[] isActiveType1 = new int[6];
+    public int[] isActiveClass1 = new int[5];
+    public int[] isActiveType2 = new int[6];
+    public int[] isActiveClass2 = new int[5];
+
+    public string synergyText1;
+    public string synergyText2;
 
     // Start is called before the first frame update
     void Start()
@@ -233,15 +247,19 @@ public class Status : MonoBehaviour
             if (a.playerUnitType[a.heroType[j]] >= typeLimit[j])
             {
                 transform.GetChild(0).GetChild(4).GetChild(0).GetChild(n).GetComponent<Image>().sprite = Resources.Load("Synergy/Image/속성_" + a.heroType[j], typeof(Sprite)) as Sprite;
-
+                isActiveType1[j] = 1;
                 if (j == 0 && a.playerUnitType[a.heroType[0]] >= typeLimit[0] * 2)
                 {
                     transform.GetChild(0).GetChild(4).GetChild(0).GetChild(n).GetComponent<Image>().color = Color.red;
+                    isActiveType1[j] = 2;
                 }
                 n++;
             }
             else
+            {
                 transform.GetChild(0).GetChild(4).GetChild(0).GetChild(n).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                isActiveType1[j] = 0;
+            }
 
         }
 
@@ -252,15 +270,24 @@ public class Status : MonoBehaviour
             if (a.playerUnitClass[a.heroClass[j]] >= classLimit[j])
             {
                 transform.GetChild(0).GetChild(4).GetChild(1).GetChild(n).GetComponent<Image>().sprite = Resources.Load("Synergy/Image/클래스_" + a.heroClass[j], typeof(Sprite)) as Sprite;
-
+                isActiveClass1[j] = 1;
                 if (j == 0 && a.playerUnitClass[a.heroClass[0]] >= classLimit[0] * 2)
+                {
                     transform.GetChild(0).GetChild(4).GetChild(1).GetChild(n).GetComponent<Image>().color = Color.red;
+                    isActiveClass1[j] = 2;
+                }
                 if (j == 1 && a.playerUnitClass[a.heroClass[1]] >= classLimit[1] * 2)
+                {
                     transform.GetChild(0).GetChild(4).GetChild(1).GetChild(n).GetComponent<Image>().color = Color.red;
+                    isActiveClass1[j] = 2;
+                }
                 n++;
             }
             else
+            {
                 transform.GetChild(0).GetChild(4).GetChild(1).GetChild(n).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                isActiveClass1[j] = 0;
+            }
         }
 
         /////////////////////////////// player 2 //////////////////////////
@@ -273,14 +300,20 @@ public class Status : MonoBehaviour
             if (a.player2UnitType[a.heroType[j]] >= typeLimit[j])
             {
                 transform.GetChild(1).GetChild(4).GetChild(0).GetChild(n).GetComponent<Image>().sprite = Resources.Load("Synergy/Image/속성_" + a.heroType[j], typeof(Sprite)) as Sprite;
-
+                isActiveType2[j] = 1;
                 if (j == 0 && a.player2UnitType[a.heroType[0]] >= typeLimit[0] * 2)
+                {
                     transform.GetChild(1).GetChild(4).GetChild(0).GetChild(n).GetComponent<Image>().color = Color.red;
+                    isActiveType2[j] = 2;
+                }
                 n++;
             }
             else
+            { 
                 transform.GetChild(1).GetChild(4).GetChild(0).GetChild(n).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
-
+                isActiveType2[j] = 0;
+            }
+               
         }
 
         n = 0;
@@ -290,25 +323,68 @@ public class Status : MonoBehaviour
             if (a.player2UnitClass[a.heroClass[j]] >= classLimit[j])
             {
                 transform.GetChild(1).GetChild(4).GetChild(1).GetChild(n).GetComponent<Image>().sprite = Resources.Load("Synergy/Image/클래스_" + a.heroClass[j], typeof(Sprite)) as Sprite;
-
+                isActiveClass2[j] = 1;
                 if (j == 0 && a.player2UnitClass[a.heroClass[0]] >= classLimit[0] * 2)
+                {
                     transform.GetChild(1).GetChild(4).GetChild(1).GetChild(n).GetComponent<Image>().color = Color.red;
+                    isActiveClass2[j] = 2;
+                }
                 if (j == 1 && a.player2UnitClass[a.heroClass[1]] >= classLimit[1] * 2)
+                {
                     transform.GetChild(1).GetChild(4).GetChild(1).GetChild(n).GetComponent<Image>().color = Color.red;
+                    isActiveClass2[j] = 2;
+                }
                 n++;
             }
             else
+            {
                 transform.GetChild(1).GetChild(4).GetChild(1).GetChild(n).GetComponent<Image>().sprite = Resources.Load("창고", typeof(Sprite)) as Sprite;
+                isActiveClass2[j] = 0;
+            }
         }
 
-        synergyInfo.text = "물 : " + a.playerUnitType["물"] + " 불 : " + a.playerUnitType["불"] + " 나무 : " + a.playerUnitType["나무"] + " 땅 : " +
-            a.playerUnitType["땅"] + "  빛 : " + a.playerUnitType["빛"] + " 어둠 : " + a.playerUnitType["어둠"] + "\n전사 : " +
-            a.playerUnitClass["전사"] + " 마법사 : " + a.playerUnitClass["마법사"] + " 사수 : " + a.playerUnitClass["사수"] + " 암살자 : " +
-            a.playerUnitClass["암살자"] + " 기사 : " + a.playerUnitClass["기사"];
 
-        synergyInfo2.text = "물 : " + a.player2UnitType["물"] + " 불 : " + a.player2UnitType["불"] + " 나무 : " + a.player2UnitType["나무"] + " 땅 : " +
-            a.player2UnitType["땅"] + "  빛 : " + a.player2UnitType["빛"] + " 어둠 : " + a.player2UnitType["어둠"] + "\n전사 : " +
-            a.player2UnitClass["전사"] + " 마법사 : " + a.player2UnitClass["마법사"] + " 사수 : " + a.player2UnitClass["사수"] + " 암살자 : " +
-            a.player2UnitClass["암살자"] + " 기사 : " + a.player2UnitClass["기사"];
+
+        synergyText1 = null;
+        synergyText2 = null;
+
+        for (int i = 0; i < isActiveType1.Length; i++)
+        {
+            if (isActiveType1[i] !=0)
+                synergyText1 += a.heroType[i] + isActiveType1[i] + "단계 : " + typeExplain[i];
+        }
+        synergyText1 += "\n";
+        for (int i = 0; i < isActiveClass1.Length; i++)
+        {
+            if (isActiveClass1[i] != 0)
+                synergyText1 += a.heroClass[i] + isActiveClass1[i] + "단계 : " + classExplain[i][isActiveClass1[i]-1];
+        }
+
+        for (int i = 0; i < isActiveType2.Length; i++)
+        {
+            if (isActiveType2[i] != 0)
+                synergyText2 += a.heroType[i] + isActiveType2[i] + "단계 : " + typeExplain[i];
+        }
+        synergyText2 += "\n";
+        for (int i = 0; i < isActiveClass2.Length; i++)
+        {
+            if (isActiveClass1[i] != 0)
+                synergyText2 += a.heroClass[i] + isActiveClass2[i] + "단계 : " + classExplain[i][isActiveClass1[i]-1];
+        }
+        synergyInfo.text = synergyText1;
+        synergyInfo2.text = synergyText2;
+
+
+
+
+        //synergyInfo.text = "물 : " + a.playerUnitType["물"] + " 불 : " + a.playerUnitType["불"] + " 나무 : " + a.playerUnitType["나무"] + " 땅 : " +
+        //    a.playerUnitType["땅"] + "  빛 : " + a.playerUnitType["빛"] + " 어둠 : " + a.playerUnitType["어둠"] + "\n전사 : " +
+        //    a.playerUnitClass["전사"] + " 마법사 : " + a.playerUnitClass["마법사"] + " 사수 : " + a.playerUnitClass["사수"] + " 암살자 : " +
+        //    a.playerUnitClass["암살자"] + " 기사 : " + a.playerUnitClass["기사"];
+
+        //synergyInfo2.text = "물 : " + a.player2UnitType["물"] + " 불 : " + a.player2UnitType["불"] + " 나무 : " + a.player2UnitType["나무"] + " 땅 : " +
+        //    a.player2UnitType["땅"] + "  빛 : " + a.player2UnitType["빛"] + " 어둠 : " + a.player2UnitType["어둠"] + "\n전사 : " +
+        //    a.player2UnitClass["전사"] + " 마법사 : " + a.player2UnitClass["마법사"] + " 사수 : " + a.player2UnitClass["사수"] + " 암살자 : " +
+        //    a.player2UnitClass["암살자"] + " 기사 : " + a.player2UnitClass["기사"];
     }
 }

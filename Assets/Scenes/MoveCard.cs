@@ -68,6 +68,15 @@ public class MoveCard : MonoBehaviour
 
     void OnMouseDown()
     {
+        a.howManyOnBoard = 0;
+        a.howManyOnBoard2 = 0;
+        for (int i = 0; i < a.board.Length; i++)
+        {
+            if (a.board[i] > 1)
+                a.howManyOnBoard++;
+            if (a.board2[i] > 1)
+                a.howManyOnBoard2++;
+        }
         isRightClick = true;
         if(turn == 1)
         {
@@ -161,10 +170,19 @@ public class MoveCard : MonoBehaviour
     {
         if(turn == 1)
         {
+
             transform.position = firstPos;
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             int layerMask = 1 << LayerMask.NameToLayer("onBoard");
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 1f, layerMask);
+
+            if (int.Parse(Status.Level1.text.ToString()) + 1 == a.howManyOnBoard)
+            {
+                print("Too many cards on the Board");
+                isRightClick = false;
+                return;
+            }
+
             if (hit.collider == null)
                 return;
 
@@ -248,6 +266,15 @@ public class MoveCard : MonoBehaviour
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             int layerMask = 1 << LayerMask.NameToLayer("onBoard2");
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 1f, layerMask);
+
+
+            if (int.Parse(Status.Level2.text.ToString()) + 1 == a.howManyOnBoard2)
+            {
+                print("Too many cards on the Board");
+                isRightClick = false;
+                return;
+            }
+
 
             if (hit.collider == null)
                 return;

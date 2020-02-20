@@ -43,7 +43,8 @@ public class playervariable : MonoBehaviour
 
     public static int Round = 1;
 
-    public string[] nameOfHero = { "루키어스", "카샤스티", "영", "유진", "레이나", "그레네브", "칼드리치", "아르카디아", "루베리카", "라티스", "데우스", "지수", "노엘", "세피아", "에렌", "달케니르" };
+    public string[] nameOfHero = { "루키어스", "카샤스티", "영", "유진", "레이나", "그레네브", "칼드리치", "아르카디아", 
+                                   "루베리카", "라티스", "데우스", "지수", "노엘", "세피아", "에렌", "달케니르" };
     public string[] heroType = { "물", "불", "나무", "땅", "빛", "어둠" };
     public string[] heroClass = { "전사", "마법사", "사수", "암살자", "기사" };
     public int[] heroHealth = { 12, 8, 5, 3, 9, 2, 3, 9, 5, 7, 6, 4, 11, 6, 2, 5 };
@@ -73,11 +74,12 @@ public class playervariable : MonoBehaviour
     //보드에 있는 유닛의 종류
     public int[] board = new int[12];
     public int[] boardLevel = new int[12];
+    public int howManyOnBoard;
 
     //카드 속성
     public Dictionary<string, Synergy> heroMap = new Dictionary<string, Synergy>();
     
-    public bool[] whoIsOnBoard = new bool[16];  //보드 위에 있는 카드 탐색
+    public static bool[] whoIsOnBoard = new bool[16];  //보드 위에 있는 카드 탐색
     public string textOfUISynergy;
 
     ///////////////////////////플레이어 2/////////////////////////////////
@@ -103,11 +105,12 @@ public class playervariable : MonoBehaviour
     //보드에 있는 유닛의 종류
     public int[] board2 = new int[12];
     public int[] board2Level = new int[12];
+    public int howManyOnBoard2;
 
     //카드 속성
     public Dictionary<string, Synergy> heroMap2 = new Dictionary<string, Synergy>();
 
-    public bool[] whoIsOnBoard2 = new bool[16];  //보드 위에 있는 카드 탐색
+    public static bool[] whoIsOnBoard2 = new bool[16];  //보드 위에 있는 카드 탐색
     public string textOfUISynergy2;
 
     void Awake()
@@ -163,8 +166,12 @@ public class playervariable : MonoBehaviour
     void Update()
     {
         TypeAndClass();
+        LevelLimit();
     }
-
+    void LevelLimit()
+    {
+        
+    }
     void TypeAndClass()
     {
         //초기화

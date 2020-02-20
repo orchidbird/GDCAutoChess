@@ -36,7 +36,7 @@ public class Shop1 : MonoBehaviour
                 gameObject.transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].health.ToString();
                 gameObject.transform.GetChild(0).GetChild(0).GetChild(3).GetComponent<Text>().text = a.heroMap[a.nameOfHero[a.num[i] - 1]].power.ToString();
 
-                gameObject.transform.GetChild(1).GetComponent<Text>().text = a.heroCost[a.num[i]-1] + "G";
+                gameObject.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = a.heroCost[a.num[i]-1] + "G";
 				break;
             }
         }
