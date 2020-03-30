@@ -12,6 +12,8 @@ public class RealTime : MonoBehaviour
     Text round;
     Text limit;
 
+    public static bool isBattle = false;
+
     void Start()
     {
         a = GameObject.Find("리롤").GetComponent<reroll>();
@@ -22,11 +24,12 @@ public class RealTime : MonoBehaviour
 
     void Update()
     {
-        if (time != 0)
+        if (time != 0 && isBattle == false)
         {
             time -= Time.deltaTime;
 
             float n =1 - (time / 10f);
+
             if (n > 0)
                 limit.color = new Color(n, 0, 0);
             else
@@ -34,6 +37,7 @@ public class RealTime : MonoBehaviour
             if (time <= 0)
             {
                 time = 0;
+
             }
         }
         TimeText();

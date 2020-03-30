@@ -176,6 +176,7 @@ public class MoveCard : MonoBehaviour
             int layerMask = 1 << LayerMask.NameToLayer("onBoard");
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 1f, layerMask);
 
+            //수정 필요 : 창고로 다시 옮기는 것이 안됨
             if (int.Parse(Status.Level1.text.ToString()) + 1 == a.howManyOnBoard)
             {
                 print("Too many cards on the Board");
