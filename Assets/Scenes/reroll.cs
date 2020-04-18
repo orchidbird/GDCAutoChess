@@ -23,16 +23,84 @@ public class reroll : MonoBehaviour
     public static void RerollButton()
     {
 		playervariable a = GameObject.Find("field").GetComponent<playervariable>();
-        
+
         for (int i = 0; i < 4; i++)
         {
+            int level = 0;
             if (a.shop[i])
             {
-                a.unit[a.num[i]-1]++;
+                a.unit[a.num[i] - 1]++;
             }
             a.shop[i] = true;
             a.UnitObject[i].SetActive(true);
-            a.num[i] = Random.Range(1, 17);
+            if (playervariable.Round % 2 == 1)
+                level = playervariable.playerlevel;
+            else
+                level = playervariable.player2level;
+            switch (level)
+            {
+                case 1:
+                    a.num[i] = Random.Range(1, 5);
+                    break;
+                case 2:
+                    if(Random.Range(1, 101) <= 75)
+                        a.num[i] = Random.Range(1, 5);
+                    else
+                        a.num[i] = Random.Range(5, 10);
+                    break;
+                case 3:
+                    if (Random.Range(1, 101) <= 60)
+                        a.num[i] = Random.Range(1, 5);
+                    else
+                        a.num[i] = Random.Range(5, 10);
+                    break;
+                case 4:
+                    if (Random.Range(1, 101) <= 50)
+                        a.num[i] = Random.Range(1, 5);
+                    else if (Random.Range(1, 101) > 50 && Random.Range(1, 101) <= 85)
+                        a.num[i] = Random.Range(5, 10);
+                    else
+                        a.num[i] = Random.Range(10, 14);
+                    break;
+                case 5:
+                    if (Random.Range(1, 101) <= 40)
+                        a.num[i] = Random.Range(1, 5);
+                    else if (Random.Range(1, 101) > 40 && Random.Range(1, 101) <= 70)
+                        a.num[i] = Random.Range(5, 10);
+                    else
+                        a.num[i] = Random.Range(10, 14);
+                    break;
+                case 6:
+                    if(Random.Range(1, 101) <= 30)
+                        a.num[i] = Random.Range(1, 5);
+                    else if (Random.Range(1, 101) > 30 && Random.Range(1, 101) <= 60)
+                        a.num[i] = Random.Range(5, 10);
+                    else if (Random.Range(1, 101) > 60 && Random.Range(1, 101) <= 95)
+                        a.num[i] = Random.Range(10, 14);
+                    else
+                        a.num[i] = Random.Range(15, 17);
+                    break;
+                case 7:
+                    if (Random.Range(1, 101) <= 25)
+                        a.num[i] = Random.Range(1, 5);
+                    else if (Random.Range(1, 101) > 25 && Random.Range(1, 101) <= 50)
+                        a.num[i] = Random.Range(5, 10);
+                    else if (Random.Range(1, 101) > 50 && Random.Range(1, 101) <= 90)
+                        a.num[i] = Random.Range(10, 14);
+                    else
+                        a.num[i] = Random.Range(15, 17);
+                    break;
+                case 8:
+                    if (Random.Range(1, 101) <= 20)
+                        a.num[i] = Random.Range(1, 5);
+                    else if (Random.Range(1, 101) > 20 && Random.Range(1, 101) <= 45)
+                        a.num[i] = Random.Range(5, 10);
+                    else if (Random.Range(1, 101) > 45 && Random.Range(1, 101) <= 80)
+                        a.num[i] = Random.Range(10, 14);
+                    else
+                        a.num[i] = Random.Range(15, 17);
+                    break;
+            }
             a.UnitObject[i].GetComponent<Image>().sprite = Resources.Load("카드배경_1", typeof(Sprite)) as Sprite;  //카드 이미지 보여주기
             a.UnitObject[i].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load(a.num[i].ToString(), typeof(Sprite)) as Sprite;
             a.UnitObject[i].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("카드템플릿_1", typeof(Sprite)) as Sprite;
